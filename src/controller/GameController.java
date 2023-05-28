@@ -32,7 +32,7 @@ public class GameController implements GameListener {
     public boolean AIPlaying;
     public Difficulty AIDiff;
     public Thread thread;
-
+    public ArrayList<ChessboardPoint> possibleMove = new ArrayList<>();
 
     public Chessboard getModel() {
         return model;
@@ -84,14 +84,38 @@ public class GameController implements GameListener {
 
     }
 
+    public ArrayList<ChessboardPoint> getpossibleMove(ChessboardPoint src){
+        ArrayList<ChessboardPoint> possibleMove = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 7; j++) {
+                ChessboardPoint dest = new ChessboardPoint(i,j);
+                if(this.model.isValidMove(src,dest)||this.model.isValidCapture(src,dest)){
+                    view.getGridComponents(dest).canmove=true;
+                    possibleMove.add(dest);
+                }
+            }
+        }
+        return possibleMove;
+    }
+    public void setCanStepFalse() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 7; j++) {
+                ChessboardPoint a = new ChessboardPoint(i,j);
+                view.getGridComponents(a).canmove = false;
+            }
+        }
+    }
 
     public void onPlayerClickCell(ChessboardPoint point, CellComponent component) {
         if (this.selectedPoint != null && this.model.isValidMove(this.selectedPoint, point)) {
+             possibleMove =null;
+            this.setCanStepFalse();
             this.model.moveChessPiece(this.selectedPoint, point);
             this.view.setChessComponentAtGrid(point, this.view.removeChessComponentAtGrid(this.selectedPoint));
             this.selectedPoint = null;
             this.swapColor();
-            this.view.repaint();
+             this.view.repaint();
+            this.view.revalidate();
             if (ifEnd()) {
                 int reddead = model.getRedDeadSize();
                 int bluedead = model.getBlueDeadSize();
@@ -114,14 +138,22 @@ public class GameController implements GameListener {
     public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent component) {
         if (this.selectedPoint == null) {
             if (this.model.getChessPieceOwner(point).equals(this.currentPlayer)) {
+                 possibleMove=this.getpossibleMove(point);
+                selectedPoint = point;
                 this.selectedPoint = point;
                 component.setSelected(true);
                 component.repaint();
+                 this.view.repaint();
+                this.view.revalidate();
             }
         } else if (this.selectedPoint.equals(point)) {
+              possibleMove=null;
+            setCanStepFalse();
             this.selectedPoint = null;
             component.setSelected(false);
             component.repaint();
+             this.view.repaint();
+                this.view.revalidate();
         } else if (this.model.isValidCapture(this.selectedPoint, point)) {        //this.selectedPoint != null&&
             //&& this.model.isValidMove(this.selectedPoint, point)
             if (this.model.getChessPieceAt(point).getOwner() == BLUE) {
@@ -130,6 +162,7 @@ public class GameController implements GameListener {
             if (this.model.getChessPieceAt(point).getOwner() == RED) {
                 this.model.redDead.add(this.model.getChessPieceAt(point));
             }
+            this.setCanStepFalse();
             this.view.removeChessComponentAtGrid(point);
             this.model.removeChess(point);
             this.model.moveChessPiece(this.selectedPoint, point);
@@ -137,6 +170,7 @@ public class GameController implements GameListener {
             this.selectedPoint = null;
             this.swapColor();
             this.view.repaint();
+             this.view.revalidate();
         }
         if (ifEnd()) {
             int reddead = model.getRedDeadSize();
@@ -157,6 +191,7 @@ public class GameController implements GameListener {
     }
 
     public void reset() {
+                possibleMove=null;
         view.getTimeLabel().setText("Time: 60");
         view.getStatusLabel().setText("Turn 1: BLUE");
         model.initGrid();
