@@ -31,6 +31,7 @@ public class GameController implements GameListener {
 
 
     public Chessboard getModel() {
+        int m =1;
         return model;
     }
 
