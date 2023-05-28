@@ -21,9 +21,17 @@ public class CellComponent extends JPanel {
         this.background = background;
     }
 
-    protected void paintComponent(Graphics g) {
+   protected void paintComponent(Graphics g) {
         super.paintComponents(g);
         g.setColor(this.background);
-        g.fillRect(1, 1, this.getWidth() - 1, this.getHeight() - 1);
+        g.fillRect(0, 0, this.getWidth()-1, this.getHeight()-1);
+        if (canmove) { // Highlights the model if selected.
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setColor(new Color(255, 253, 87, 150));
+            RoundRectangle2D roundedRectangle = new RoundRectangle2D.Double(1, 1,
+                    this.getWidth() - 1, this.getHeight() - 1, size / 4, size / 4);
+            Rectangle2D rectangle2D = new Rectangle2D.Double(1,1,this.getWidth(),this.getHeight());
+            g2d.fill(rectangle2D);
+        }
     }
 }
