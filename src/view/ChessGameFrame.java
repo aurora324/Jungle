@@ -16,7 +16,7 @@ import javax.swing.*;
 //import utils.ImageUtils;
 
 public class ChessGameFrame extends JFrame {
-    private ChessboardComponent view;
+    public ChessboardComponent view;
     public BeginFrame beginFrame;
     private int WIDTH = 0;
     private int HEIGHT = 0;
@@ -54,23 +54,25 @@ public class ChessGameFrame extends JFrame {
         this.addLoadButton();
         this.addRegretButton();
         this.addPlayBackButton();
+        this.addChangeThemeButton();
+        this.addRepaintButton();
 
 
-//        Image image = new ImageIcon("src/spring.png").getImage();
-//        image = image.getScaledInstance(1100, 810,Image.SCALE_DEFAULT);
-//        ImageIcon icon = new ImageIcon(image);
-//        springBG = new JLabel(icon);
-//        springBG.setSize(1100, 810);
-//        springBG.setLocation(0, 0);
+        Image image = new ImageIcon("src/spring.png").getImage();
+        image = image.getScaledInstance(1100, 810,Image.SCALE_DEFAULT);
+        ImageIcon icon = new ImageIcon(image);
+        springBG = new JLabel(icon);
+        springBG.setSize(1100, 810);
+        springBG.setLocation(0, 0);
 
-//        image = new ImageIcon("src/autumn.png").getImage();
-//        image = image.getScaledInstance(1100, 810,Image.SCALE_DEFAULT);
-//        icon = new ImageIcon(image);
-//        autumnBG = new JLabel(icon);
-//        autumnBG.setSize(1100, 810);
-//        autumnBG.setLocation(0, 0);
-        //background = springBG;
-        //add(background);
+        image = new ImageIcon("src/autumn.png").getImage();
+        image = image.getScaledInstance(1100, 810,Image.SCALE_DEFAULT);
+        icon = new ImageIcon(image);
+        autumnBG = new JLabel(icon);
+        autumnBG.setSize(1100, 810);
+        autumnBG.setLocation(0, 0);
+        background = springBG;
+        add(background);
     }
 
     public ChessboardComponent getChessboardComponent() {
@@ -161,9 +163,9 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             System.out.println("Click regret");
             gameController.regretOneStep();
-//            if (view.controller.AIPlaying){
-//                view.controller.regretOneStep();
-//            }
+            if (view.gameController.AIPlaying){
+                view.gameController.regretOneStep();
+            }
         });
     }
 
@@ -180,52 +182,45 @@ public class ChessGameFrame extends JFrame {
             Timer.time = 20;
         });
     }
+
+    private void addRepaintButton() {
+        JButton button = new JButton("Repaint");
+        button.setLocation(HEIGHT, HEIGHT / 10 + 444);
+        button.setSize(180, 54);
+        button.setFont(new Font("Rockwell", Font.BOLD, 14));
+        add(button);
+
+        button.addActionListener(e -> {
+            gameController.newStep();
+        });
+    }
 //
-//    private void addChangeBoardButton() {
-//        JButton button = new JButton("Change Chessboard");
-//        button.setLocation(HEIGHT, HEIGHT / 10 + 444);
-//        button.setSize(180, 54);
-//        button.setFont(new Font("Rockwell", Font.BOLD, 14));
-//        add(button);
-//
-//        button.addActionListener(e -> {
-//            System.out.println("Click change chessboard");
-//            Object[] options = {"Grass", "River", "Trap", "Dens"};
-//            String s = (String) JOptionPane.showInputDialog(null, "Choose the one you want to change",
-//                    "Change Color", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-//            if (s != null){
-//                ColorFrame colorFrame = new ColorFrame(s);
-//                colorFrame.gameFrame = this;
-//            }
-//        });
-//    }
-//
-//    private void addChangeThemeButton() {
-//        JButton button = new JButton("Change Theme");
-//        button.setLocation(HEIGHT, HEIGHT / 10 + 518);
-//        button.setSize(180, 54);
-//        button.setFont(new Font("Rockwell", Font.BOLD, 16));
-//        add(button);
-//
-//        button.addActionListener(e -> {
-//            System.out.println("Click change theme");
-//            view.changeTheme(isSpring);
-//            if (isSpring){
-//                remove(background);
-//                isSpring = false;
-//                background = autumnBG;
-//                add(background);
-//            } else {
-//                remove(background);
-//                isSpring = true;
-//                background = springBG;
-//                add(background);
-//            }
-//            repaint();
-//            revalidate();
-//        });
-//    }
-//
+    private void addChangeThemeButton() {
+        JButton button = new JButton("Change Theme");
+        button.setLocation(HEIGHT, HEIGHT / 10 + 518);
+        button.setSize(180, 54);
+        button.setFont(new Font("Rockwell", Font.BOLD, 16));
+        add(button);
+
+        button.addActionListener(e -> {
+            System.out.println("Click change theme");
+            gameController.view.changeTheme(isSpring);
+            if (isSpring){
+                remove(background);
+                isSpring = false;
+                background = autumnBG;
+                add(background);
+            } else {
+                remove(background);
+                isSpring = true;
+                background = springBG;
+                add(background);
+            }
+            repaint();
+            revalidate();
+        });
+    }
+
     private void addBackButton() {
         JButton button = new JButton("Back");
         button.setLocation(HEIGHT, HEIGHT / 10 + 592);
