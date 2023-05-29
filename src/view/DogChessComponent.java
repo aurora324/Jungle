@@ -21,9 +21,9 @@ public class DenChessComponent extends JComponent {
 //    }
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon pic = new ImageIcon("src/resources/rden.png");
+        ImageIcon pic = new ImageIcon("src/resources/rd.png");
         if (owner == PlayerColor.BLUE){
-            pic = new ImageIcon("src/resources/bden.png");
+            pic = new ImageIcon("src/resources/bd.png");
         }
         Image image = pic.getImage();
         pic = new ImageIcon(image.getScaledInstance(this.getWidth(), this.getWidth(),Image.SCALE_SMOOTH));
