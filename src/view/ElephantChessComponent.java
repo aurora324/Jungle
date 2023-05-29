@@ -37,7 +37,7 @@ public class ElephantChessComponent extends ChessComponent {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon pic = new ImageIcon("src/resources/elephant-head.png");
+        ImageIcon pic = new ImageIcon("src/resources/re.png");
         if (owner == PlayerColor.BLUE){
             pic = new ImageIcon("src/resources/be.png");
         }
