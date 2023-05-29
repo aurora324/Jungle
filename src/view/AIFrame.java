@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameController;
+import model.Difficulty;
 import model.User;
 
 import javax.swing.*;
@@ -34,9 +36,8 @@ public class AIFrame extends JFrame {
         addBackButton();
         addEasyButton();
         addNormalButton();
-        addHardButton();
-        addUserButton();
-        addRankButton();
+//        addUserButton();
+//        addRankButton();
 
         Image image = new ImageIcon("resource/background/bg.png").getImage();
         image = image.getScaledInstance(400, 500, Image.SCALE_DEFAULT);
@@ -85,20 +86,19 @@ public class AIFrame extends JFrame {
     private void addEasyButton() {
         JButton button = new JButton("Easy");
         button.addActionListener((e) -> {
-//            if (Controller.timer != null){
-//                Controller.timer.stop();
-//                Controller.timer = null;
-//            }
-
+            if (GameController.timer != null) {
+                GameController.timer.stop();
+                GameController.timer = null;
+            }
             beginFrame.chessGameFrame.getChessboardComponent().gameController.reset();
             this.setVisible(false);
             beginFrame.chessGameFrame.timeLabel.setVisible(false);
             beginFrame.chessGameFrame.statusLabel.setLocation(810, 81);
             beginFrame.chessGameFrame.repaint();
-            //beginFrame.chessGameFrame.getChessboardComponent().gameController.AIDiff = Difficulty.EASY;
+            beginFrame.chessGameFrame.getChessboardComponent().gameController.AIDiff = Difficulty.EASY;
             beginFrame.chessGameFrame.setVisible(true);
         });
-        button.setLocation(100, 140);
+        button.setLocation(100, 150);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -107,69 +107,25 @@ public class AIFrame extends JFrame {
     private void addNormalButton() {
         JButton button = new JButton("Normal");
         button.addActionListener((e) -> {
-//            if (Controller.timer != null){
-//                Controller.timer.stop();
-//                Controller.timer = null;
-//            }
+            if (GameController.timer != null) {
+                GameController.timer.stop();
+                GameController.timer = null;
+            }
 
             beginFrame.chessGameFrame.getChessboardComponent().gameController.reset();
             this.setVisible(false);
             beginFrame.chessGameFrame.timeLabel.setVisible(false);
             beginFrame.chessGameFrame.statusLabel.setLocation(810, 81);
             beginFrame.chessGameFrame.repaint();
-            //beginFrame.chessGameFrame.getChessboardComponent().gameController.AIDiff = Difficulty.NORMAL;
+            beginFrame.chessGameFrame.getChessboardComponent().gameController.AIDiff = Difficulty.NORMAL;
             beginFrame.chessGameFrame.setVisible(true);
 
         });
-        button.setLocation(100, 230);
+        button.setLocation(100, 300);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
     }
 
-    private void addHardButton() {
-        JButton button = new JButton("Hard");
-        button.addActionListener((e) -> {
-//            this.setVisible(false);
-//            beginFrame.gameFrame.getBoardView().controller.AIDiff = Difficulty.HARD;
-//            beginFrame.gameFrame.setVisible(true);
-            JOptionPane.showMessageDialog(null, "Haven't been implemented yet");
-        });
-        button.setLocation(100, 320);
-        button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(button);
-    }
 
-    private void addUserButton() {
-        JButton button = new JButton("User");
-        button.addActionListener((e) -> {
-            if (isLogin) {
-                String inf = "ID：" + user.name + "\n" + "Score：" + user.score;
-                JOptionPane.showMessageDialog(null, inf, "Information", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                new LoginFrame(this);
-            }
-        });
-        button.setLocation(240, 20);
-        button.setSize(60, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 10));
-        add(button);
-    }
-
-    private void addRankButton() {
-        JButton button = new JButton("Rank");
-        button.addActionListener((e) -> {
-            Collections.sort(users);
-            StringBuilder rank = new StringBuilder("Rank  ID (Score)\n");
-            for (int i = 0; i < users.size(); i++) {
-                rank.append("   ").append(i + 1).append("      ").append(users.get(i).name).append(" (").append(users.get(i).score).append(")\n");
-            }
-            JOptionPane.showMessageDialog(null, rank.toString(), "Rank List", JOptionPane.INFORMATION_MESSAGE);
-        });
-        button.setLocation(310, 20);
-        button.setSize(60, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 10));
-        add(button);
-    }
 }
