@@ -1,0 +1,29 @@
+Turn : 8
+Current Side to Play : BLUE
+
+BLUE: ( 7 , 3 )->( 8 , 3 )
+RED : ( 3 , 3 )->( 3 , 4 )
+BLUE: ( 8 , 3 )->( 7 , 3 )
+RED : ( 3 , 4 )->( 4 , 4 )
+BLUE: ( 7 , 3 )->( 8 , 3 )
+RED : ( 4 , 4 )->( 5 , 4 )
+BLUE: ( 8 , 3 )->( 7 , 3 )
+RED : ( 5 , 4 )->( 6 , 4 )
+BLUE: ( 7 , 3 )->( 8 , 3 )
+RED : ( 6 , 4 )->( 7 , 4 )
+BLUE: ( 8 , 3 )->( 7 , 3 )
+RED : ( 7 , 4 )->( 8 , 4 )
+BLUE: ( 7 , 3 )->( 8 , 3 )
+RED : ( 3 , 5 )->( 3 , 4 )
+
+BLUE's Turn
+
+RED  Lion                                                                            RED  Tiger     
+              RED  Dog                                                 RED  Cat                     
+RED  Rat                                   RED  Wolf                                  RED  Elephant  
+                                                                                                  
+                                                                                                  
+                                                                                                  
+BLUE Elephant                                            BLUE Leopard                 BLUE Rat       
+              BLUE Cat       BLUE Wolf      RED  Leopard                 BLUE Dog                     
+BLUE Tiger                                                                           BLUE Lion      
