@@ -5,15 +5,17 @@
 
 package view;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Point;
+import model.ChessboardPoint;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 
 public class CellComponent extends JPanel {
     private Color background;
-
+    public boolean canmove;
+    int size;
     public CellComponent(Color background, Point location, int size) {
         this.setLayout(new GridLayout(1, 1));
         this.setLocation(location);
@@ -21,7 +23,7 @@ public class CellComponent extends JPanel {
         this.background = background;
     }
 
-   protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponents(g);
         g.setColor(this.background);
         g.fillRect(0, 0, this.getWidth()-1, this.getHeight()-1);
