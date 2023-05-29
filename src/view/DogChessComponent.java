@@ -5,41 +5,25 @@
 
 package view;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
-import javax.swing.JComponent;
+import javax.swing.*;
+
 import model.PlayerColor;
 
-public class DogChessComponent extends ChessComponent {
+public class DenChessComponent extends JComponent {
     private PlayerColor owner;
-    private boolean selected;
-
-    public DogChessComponent(PlayerColor owner, int size) {
-        this.owner = owner;
-        this.selected = false;
-        this.setSize(size / 2, size / 2);
-        this.setLocation(0, 0);
-        this.setVisible(true);
-    }
-
-    public boolean isSelected() {
-        return this.selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
-
-    public void paintComponent(Graphics g) {
+//    protected void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        Graphics2D g2 = (Graphics2D)g;
+//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//        g2.setColor(this.owner.getColor());
+//    }
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        ImageIcon pic = new ImageIcon("src/resources/rd.png");
+        ImageIcon pic = new ImageIcon("src/resources/rden.png");
         if (owner == PlayerColor.BLUE){
-            pic = new ImageIcon("src/resources/bd.png");
+            pic = new ImageIcon("src/resources/bden.png");
         }
         Image image = pic.getImage();
         pic = new ImageIcon(image.getScaledInstance(this.getWidth(), this.getWidth(),Image.SCALE_SMOOTH));
@@ -47,5 +31,6 @@ public class DogChessComponent extends ChessComponent {
         label.setSize(this.getWidth(), this.getWidth());
         //bgLabel.setLocation(0, 0);
         add(label);
+        }
     }
-}
+
