@@ -2,6 +2,7 @@ package view;
 
 import controller.GameController;
 import model.Chessboard;
+import model.Difficulty;
 import model.Timer;
 import model.User;
 
@@ -11,8 +12,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-
-import static model.PlayerColor.BLUE;
 
 public class BeginFrame extends JFrame {
     public ChessGameFrame chessGameFrame;
@@ -24,7 +23,6 @@ public class BeginFrame extends JFrame {
     static {
         try {
             File file = new File("user.txt");
-
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             bufferedReader.readLine();
             String s = bufferedReader.readLine();
@@ -98,6 +96,8 @@ public class BeginFrame extends JFrame {
         chessGameFrame.beginFrame = this;
         chessGameFrame.gameController.beginFrame = this;
         aiFrame.beginFrame = this;
+        gameController.AIPlaying = false;
+        chessGameFrame.view=chessGameFrame.gameController.view;
 
 
         addBeginButton();
@@ -124,17 +124,12 @@ public class BeginFrame extends JFrame {
             Container container = jFrame.getContentPane();
             JTextArea jTextArea = new JTextArea();
             JScrollPane jScrollPane = new JScrollPane(jTextArea);
-//            StringBuilder s = new StringBuilder();
-//            for (User user : users) {
-//                s.append(user.toString()).append("\n");
-//            }
-//            JLabel jLabel = new JLabel(String.valueOf(s));
-//            jLabel.setFont(new Font("Rockwell", Font.BOLD, 10));
             container.add(jScrollPane, BorderLayout.CENTER);
             jFrame.setLocation(240, 20);
             jFrame.setSize(600, 300);
             jFrame.setVisible(true);
             jTextArea.setText("");
+            jTextArea.append(String.format("%-13s%-15s\n", "Name",  "Score"));
             for (User user : users) {
                 jTextArea.append(user.toString() + "\n");
             }
@@ -152,18 +147,11 @@ public class BeginFrame extends JFrame {
             Container container = jFrame.getContentPane();
             JTextArea jTextArea = new JTextArea();
             JScrollPane jScrollPane = new JScrollPane(jTextArea);
-//            StringBuilder s = new StringBuilder();
-//            for (User user : users) {
-//                s.append(user.toString()).append("\n");
-//            }
-//            JLabel jLabel = new JLabel(String.valueOf(s));
-//            jLabel.setFont(new Font("Rockwell", Font.BOLD, 10));
             container.add(jScrollPane, BorderLayout.CENTER);
             jFrame.setLocation(240, 20);
             jFrame.setSize(600, 300);
             jFrame.setVisible(true);
             ArrayList<User> temp = new ArrayList<>(users);
-
             for (int i = 0; i < temp.size() - 1; i++) {
                 for (int j = i + 1; j < temp.size(); j++) {
                     if (temp.get(i).score < temp.get(j).score) {
@@ -171,6 +159,7 @@ public class BeginFrame extends JFrame {
                     }
                 }
             }
+            jTextArea.append(String.format("%-13s%-15s\n", "Name",  "Score"));
             for (User user : temp) {
                 jTextArea.append(user.toString() + "\n");
             }
@@ -317,22 +306,6 @@ public class BeginFrame extends JFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
-
-
-//                try {
-//                    FileWriter fileWriter = null;
-//                    fileWriter = new FileWriter("user.txt");
-//                    for (User user : users) {
-//                        fileWriter.write(String.format("%-15s%-15s%d", user.name, user.password, user.score));
-//                    }
-//                } catch (IOException ex) {
-//                    throw new RuntimeException(ex);
-//                }
-
-
-
-
                 JOptionPane.showMessageDialog(null,"Sign up Successfully!");
                 login.setVisible(false);
             });
@@ -373,12 +346,12 @@ public class BeginFrame extends JFrame {
             chessGameFrame.statusLabel.setLocation(770, 81);
             chessGameFrame.repaint();
             chessGameFrame.timeLabel.setVisible(true);
-            //chessGameFrame.getChessboardComponent().gameController.reset();
-//            chessGameFrame.getChessboardComponent().gameController.AIPlaying = false;
-//            chessGameFrame.getChessboardComponent().gameController.AIDiff = Difficulty.NONE;
+            chessGameFrame.getChessboardComponent().gameController.reset();
+            chessGameFrame.getChessboardComponent().gameController.AIPlaying = false;
+            chessGameFrame.getChessboardComponent().gameController.AIDiff = Difficulty.NONE;
             chessGameFrame.setVisible(true);
         });
-        button.setLocation(100, 100);
+        button.setLocation(100, 150);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -388,7 +361,7 @@ public class BeginFrame extends JFrame {
         JButton button = new JButton("AI");
         button.addActionListener((e) -> {
             this.setVisible(false);
-            //chessGameFrame.getChessboardComponent().gameController.AIPlaying = true;
+            chessGameFrame.getChessboardComponent().gameController.AIPlaying = true;
             aiFrame.setVisible(true);
         });
         button.setLocation(100, 300);
