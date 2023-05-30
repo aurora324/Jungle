@@ -10,7 +10,9 @@ import model.Chessboard;
 import model.Timer;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.channels.Pipe;
 //import java.awt.image.BufferedImage;
 import javax.swing.*;
 //import utils.ImageUtils;
@@ -31,7 +33,6 @@ public class ChessGameFrame extends JFrame {
     JLabel background;
     public JLabel springBG;
     public JLabel autumnBG;
-
 
     public ChessGameFrame() {
     }
@@ -122,6 +123,7 @@ public class ChessGameFrame extends JFrame {
         button.setLocation(HEIGHT, HEIGHT / 10 + 148);
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setToolTipText("保存游戏");
         add(button);
 
         button.addActionListener(e -> {
@@ -145,6 +147,7 @@ public class ChessGameFrame extends JFrame {
         button.setLocation(HEIGHT, HEIGHT / 10 + 222);
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setToolTipText("加载游戏");
         add(button);
 
         button.addActionListener(e -> {
@@ -158,6 +161,7 @@ public class ChessGameFrame extends JFrame {
         button.setLocation(HEIGHT, HEIGHT / 10 + 296);
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setToolTipText("悔棋");
         add(button);
 
         button.addActionListener(e -> {
@@ -174,6 +178,7 @@ public class ChessGameFrame extends JFrame {
         button.setLocation(HEIGHT, HEIGHT / 10 + 370);
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setToolTipText("双方各悔一次棋");
         add(button);
 
         button.addActionListener(e -> {
@@ -189,6 +194,7 @@ public class ChessGameFrame extends JFrame {
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 14));
         add(button);
+        button.setToolTipText("重新加载游戏");
 
         button.addActionListener(e -> {
             gameController.newStep();
@@ -201,6 +207,7 @@ public class ChessGameFrame extends JFrame {
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 16));
         add(button);
+        button.setToolTipText("改变背景图片");
 
         button.addActionListener(e -> {
             System.out.println("Click change theme");
@@ -227,6 +234,7 @@ public class ChessGameFrame extends JFrame {
         button.setSize(180, 54);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
+        button.setToolTipText("主菜单");
 
         button.addActionListener(e -> {
             this.getChessboardComponent().gameController.reset();
