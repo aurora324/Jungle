@@ -26,7 +26,7 @@ public class Timer extends Thread {
                         Thread.sleep(1000);
                         gameController.view.timeLabel.setText("Time: " + time);
                         if (gameController.getCurrentPlayer() != player) {
-                            gameController.swapColor();
+                            //gameController.swapColor();
                             b = false;
                             break;
                         }
@@ -65,10 +65,7 @@ public class Timer extends Thread {
                         JOptionPane.showMessageDialog(null, gameController.getCurrentPlayer() == BLUE ? RED : BLUE + " Win.\n" + "Red dead: " + reddead + "\n" + "Blue dead: " + bluedead);
                         gameController.reset();
                     }
-                } else {
-                    gameController.swapColor();
-                }
-
+                } 
             }
         }
 
@@ -77,5 +74,4 @@ public class Timer extends Thread {
     public Timer(GameController gameController) {
         this.gameController = gameController;
     }
-
 }
